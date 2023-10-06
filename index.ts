@@ -1,5 +1,5 @@
 import { Calculator } from "./calculator";
-import { MENU, SKU } from "./data";
+import { SKU } from "./data";
 
 const bill1 = new Calculator();
 bill1.addItem(SKU.orange, 2);

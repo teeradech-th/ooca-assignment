@@ -9,16 +9,13 @@ export class Calculator {
   declare items: BillItem;
 
   constructor() {
+    // can be moved to variable to pass when create new Calculator
+    // but to simplify this assignment, I put it here
     this.itemRules = [new BuyXGetYPercentOffRule(2, 5, [SKU.orange, SKU.pink, SKU.green])];
     this.memberDiscountRule = new MemberDiscountRule(10);
     this.items = <BillItem>{};
   }
 
-  /**
-   * 
-   * @param sku 
-   * @param amount 
-   */
   addItem(sku: SKU, amount = 1) {
     if (!this.items[sku]) {
       this.items[sku] = { amount: 0 };
@@ -28,10 +25,8 @@ export class Calculator {
 
   /**
    * Calculate bill with discount
-   * @param param0.isMember boolean
-   * @returns number total amount
    */
-  bill({ isMember = false }): number {
+  bill({ isMember = false } = {}): number {
     let totalAmount = 0;
     Object.entries(this.items).forEach(([sku, { amount }]) => {
       totalAmount += MENU[sku as SKU].unitPrice * amount;
@@ -48,11 +43,10 @@ export class Calculator {
   }
 
   /**
-   * 
-   * @param param0.isMember boolean 
-   * @returns string bill for debugging / showing result purpose
+   * string bill for debugging / showing result purpose
    */
-  printBill({ isMember = false }): string {
+  /* istanbul ignore next */
+  printBill({ isMember = false } = {}): string {
     let bill = ' QTY  ITEM         PRICE      TOTAL';
     bill += '\n===================================';
 
